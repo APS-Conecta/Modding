@@ -1,15 +1,19 @@
 # Approved design
 
-Approved through the project design interview on 2026-11-01. This document
-records requirements, not a claim of implemented functionality. All runtime
-proofs remain pending in [the validation plan](validation.md).
+Approved through the project design interview on 2026-11-01, including the
+clarification that establishment selection happens during installation and AIO
+already works for the user. This document records requirements, not a claim of
+implemented Modding functionality. Modding's runtime checks remain pending in
+[the validation plan](validation.md).
 
 ## Product and scope
 
 Modding delivers APS Conecta Gestión as an installation and administration layer
-around official Nextcloud AIO. One fresh, dedicated server serves one
-establishment. The suite excludes patient data. Setup and administration are
-Spanish-facing, with Chilean locale defaults and formal usted.
+around official Nextcloud AIO. Its installer and provisioning core are
+establishment-agnostic. One fresh, dedicated server serves one establishment
+chosen by the operator during installation. The suite excludes patient data.
+Setup and administration are Spanish-facing, with Chilean locale defaults and
+formal usted.
 
 Version one targets Ubuntu Server 24.04 LTS and Debian 13 on x86-64. These are
 selected test targets, not yet certified platforms. ARM, other distributions,
@@ -45,10 +49,11 @@ completed users and data are preserved. Ambiguous outcomes require inspection
 and actionable recovery instructions rather than destructive reinitialization.
 
 Fully automatic first setup depends on AIO's internal authenticated endpoints.
-This integration is permitted but conditional on a successful prototype and
-version-specific regression coverage. It must be isolated behind an adapter.
-The inspected upstream documentation does not establish a stable public API for
-first setup. Failure of this proof requires a design decision before release.
+This integration must be isolated behind an adapter and covered by version-specific
+tests when implemented. The inspected upstream documentation does not establish
+a stable public API for first setup. AIO's existing operation is the accepted
+base; implementing the configuration wizard does not wait for a separate AIO
+feasibility prototype. The adapter still needs validation before release.
 
 ## Network, hostname and certificates
 
@@ -75,10 +80,23 @@ hostname TLS alone does not prove that the initial IP setup session is protected
 
 ## Establishment configuration and accounts
 
-Use `gestion`'s establishment model as a starting point: DEIS establishment,
-sectors, programs, groups, shared folders and group-based permissions. Each
-establishment selects and edits its configuration during installation. Show the
-resulting structure and permissions before applying them; persist those choices.
+Require the operator to choose or define the establishment before provisioning.
+Capture its identity in the installation configuration; never bake a real
+establishment name, identifier, roster or organizational structure into the
+installer. Keep one establishment per installation.
+
+Offer an establishment catalog when available and allow manual definition when
+the desired establishment is absent. A DEIS identifier is optional metadata,
+not a prerequisite for using the installer. Catalog records and organizational
+templates are data; the core must not depend on a particular establishment or
+registry entry.
+
+Use `gestion`'s sectors, programs, groups, shared folders and group-based
+permissions as editable starting templates. The operator chooses the applicable
+structure during installation; no specific template is mandatory. Show the
+selected identity, resulting structure and permissions before applying them.
+Persist the approved choices and use that configuration for provisioning and
+recovery.
 
 Create one named initial administrator and import named staff from a validated,
 previewed CSV. The planned fields cover names, usernames, email addresses, groups
@@ -196,11 +214,22 @@ guidance. Version one operates without an APS central management service.
 
 ## Proof and documentation
 
-The first milestone proves the complete installation path on disposable servers
-before completing the administration frontend. The [validation plan](validation.md)
-defines the release gates and documents current upstream constraints. A failed
-required capability returns for an explicit decision; it does not authorize an
-upstream patch, silent omission or success claim.
+The first milestone implements the Modding configuration wizard: establishment
+selection or manual definition, editable organizational configuration, validation,
+SQLite persistence and a provisioning preview. Demonstrate that two different
+synthetic establishments can use the same build without shared identity or
+configuration leaking between installations. Provisioning requires an explicit
+establishment selection and confirmation of the preview.
+
+Then connect the saved configuration to the worker for users, branding and the
+approved app catalog, and integrate the AIO installation path. AIO is the working
+base reported by the user; the work proves Modding's behavior and integration.
+End-to-end installation and recovery on disposable servers remain release gates,
+rather than a separate upstream feasibility milestone before wizard development.
+
+The [validation plan](validation.md) defines those gates and documents current
+upstream constraints. A failed required capability returns for an explicit
+decision; it does not authorize an upstream patch, silent omission or success claim.
 
 Keep documentation current through the workflow in [CONTRIBUTING.md](../CONTRIBUTING.md).
 Runnable operator instructions and release claims must follow demonstrated
