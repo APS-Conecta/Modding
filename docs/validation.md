@@ -6,9 +6,15 @@ As of 2026-11-01, the repository contains design documentation only. **No Moddin
 runtime checks have passed yet.** Upstream documentation/source inspection is
 evidence about upstream behavior, not evidence of a working Modding installation.
 
-The first milestone is an end-to-end installation on disposable servers. The
-following checks are release requirements; detailed fixtures and commands must
-be added alongside the implementation.
+The user reports that AIO already works; that is the accepted project baseline,
+not a recorded Modding validation run. The first milestone is establishment
+selection, editable configuration, persistence and a provisioning preview in the
+Modding wizard. A separate proof that upstream AIO itself works is not a
+prerequisite for developing that milestone.
+
+The following checks remain release requirements, including Modding's AIO
+automation and end-to-end installation on disposable servers. Detailed fixtures
+and commands must be added alongside the implementation.
 
 ## Acceptance matrix
 
@@ -21,7 +27,7 @@ be added alongside the implementation.
 | V05 | LAN/VPN clients, container DNS, DNS certificate issuance and renewal | Trusted hostname TLS and correct internal reachability without public suite exposure | Pending |
 | V06 | Automatic initial AIO setup | Complete without manual AIO UI actions, using unchanged official images; record tested adapter/version | Pending |
 | V07 | Expired setup session, slow progressing pulls and ambiguous startup result | Bounded recovery, meaningful progress, no false success or blind replay | Pending |
-| V08 | Establishment selections and roster import | Preview matches created groups, folders, named users and permissions | Pending |
+| V08 | Selected establishment configuration and roster import | Preview matches the chosen identity and created groups, folders, named users and permissions | Pending |
 | V09 | Rerun after direct administrator edits | Preserve edits and passwords; no duplicate users or deletion from absent CSV rows | Pending |
 | V10 | Working and failing SMTP paths | Invitations work; failed delivery does not become completed activation | Pending |
 | V11 | Included app catalog and selected optional apps | Required functions available from approved sources; failures remain visible and block completion as specified | Pending |
@@ -34,6 +40,7 @@ be added alongside the implementation.
 | V18 | Off-host backup and replacement-host restore | Restore AIO and Modding together with separately retained recovery material | Pending |
 | V19 | Evaluation versus production completion | Backup deferral clearly visible; production readiness requires backup and restore evidence | Pending |
 | V20 | Operator documentation walkthrough | Spanish instructions match actual commands, URLs, recovery and limitations | Pending |
+| V21 | Two different synthetic establishments using the same build, including manual definition without DEIS metadata | Each saved configuration and preview reflects its own choices; no hard-coded identity or cross-installation leakage; missing establishment selection blocks provisioning | Pending |
 
 Exact hardware requirements, DNS-provider support, library versions, credential
 storage, worker IPC and diagnostic retention must be documented and checked when
