@@ -1,19 +1,29 @@
 # Modding
 
-Modding is the planned APS Conecta installer and administration layer for an
+Modding is the APS Conecta installer and administration layer being built for an
 unmodified Nextcloud All-in-One (AIO) installation. It will configure the suite,
 create named users, apply the existing `gestion` custom theme, and install the selected applications for
 one establishment per server. Modding is establishment-agnostic: the operator
 selects the establishment from the DEIS catalog during setup. No particular
 establishment is hard-coded or preselected in the installer.
 
-**Status: design approved; implementation and runtime validation pending.**
-This repository does not yet provide an installer or a downloadable release.
-The user reports that AIO already works. The next implementation milestone is
-the Modding configuration wizard, using the existing APS visual identity: select
-an establishment through DEIS, edit its configuration, save it and preview the
-provisioning plan. Validation will focus on Modding's integration and changes to
-that working base.
+**Status: configuration wizard implemented; suite installation and provisioning pending.**
+The Go wizard provides DEIS search/selection, editable organizational configuration,
+SQLite persistence, a provisioning preview, confirmation and JSON export. It uses
+the original Gestión brand tokens, fonts and logos. AIO is the working upstream
+base; this build does not yet install or modify it, or apply the suite theme.
+
+To run the wizard locally with the Go version in [go.mod](go.mod):
+
+```sh
+go build -o bin/modding ./cmd/modding
+./bin/modding --state-dir .modding
+```
+
+Open `http://127.0.0.1:8787` and enter the one-use code printed in the terminal.
+See the [Spanish wizard guide](docs/wizard.md) for network access with TLS,
+catalog updates and verification. There is no production installer or published
+downloadable release yet.
 
 The agreed delivery method is an HTTPS shell bootstrap, usable through
 `curl … | sh`, which downloads and verifies a versioned Modding release. There
@@ -31,6 +41,7 @@ IP-only Nextcloud URLs are outside the agreed deployment profile.
 - [Validation](docs/validation.md): technical proof requirements, regression
   scenarios and release evidence.
 - [Contributing](CONTRIBUTING.md): documentation upkeep and change requirements.
+- [Wizard guide](docs/wizard.md): run and use the implemented configuration milestone.
 
 Behavior changes must update the corresponding documentation in the same PR.
 Documentation distinguishes approved requirements, upstream observations and

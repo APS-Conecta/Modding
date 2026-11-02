@@ -1,0 +1,3 @@
+codigo,tipo,nombre,direccion,comuna_codigo,comuna,region_codigo,region,servicio_salud,dependencia,latitud,longitud
+900001,CESFAM,Centro Árbol de Prueba,Calle Ejemplo 123,99901,Comuna de Prueba,99,Región de Prueba,Servicio de Prueba,Municipal,-33,-70
+900002,PSR,Posta Norte de Prueba,Calle Ejemplo 456,99902,Comuna Norte de Prueba,98,Región Norte de Prueba,Servicio Norte de Prueba,Municipal,-34,-71

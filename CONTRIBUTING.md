@@ -44,6 +44,11 @@ synthetic identities and redact sensitive diagnostic output.
 
 ## Review checklist
 
+For the implemented wizard, run `go test -race ./...`, `go vet ./...`,
+`python3 scripts/check_sources.py` and `python3 scripts/check_docs.py`. For UI or
+request-flow changes, build the executable and run the browser smoke test from
+[the wizard guide](docs/wizard.md). The GitHub workflow runs those checks on PRs.
+
 1. Compare the final change with the accepted design and identify affected docs.
 2. Update those sections and remove stale commands, claims and references.
 3. Check relative links, formatting and consistency between the README and docs.

@@ -2,9 +2,11 @@
 
 ## Current status
 
-As of 2026-11-01, the repository contains design documentation only. **No Modding
-runtime checks have passed yet.** Upstream documentation/source inspection is
-evidence about upstream behavior, not evidence of a working Modding installation.
+As of 2026-11-02, the configuration wizard has passed backend and browser checks
+on Ubuntu 24.04 x86-64. This validates DEIS selection, saved configuration and
+preview behavior, not installation or provisioning of a complete Nextcloud suite.
+See [the milestone evidence](evidence/wizard-2026-11-02.md) for the environment,
+commands, screenshots and limits. Debian 13 and end-to-end AIO checks remain pending.
 
 The user reports that AIO already works; that is the accepted project baseline,
 not a recorded Modding validation run. The first milestone is DEIS establishment
@@ -27,30 +29,32 @@ and commands must be added alongside the implementation.
 | V05 | LAN/VPN clients, container DNS, DNS certificate issuance and renewal | Trusted hostname TLS and correct internal reachability without public suite exposure | Pending |
 | V06 | Automatic initial AIO setup | Complete without manual AIO UI actions, using unchanged official images; record tested adapter/version | Pending |
 | V07 | Expired setup session, slow progressing pulls and ambiguous startup result | Bounded recovery, meaningful progress, no false success or blind replay | Pending |
-| V08 | DEIS-selected establishment configuration and roster import | Preview matches the selected catalog identity and created groups, folders, named users and permissions | Pending |
+| V08 | DEIS-selected establishment configuration and roster import | Preview matches the selected catalog identity and created groups, folders, named users and permissions | Partial: configuration/preview tested; roster and provisioning pending |
 | V09 | Rerun after direct administrator edits | Preserve edits and passwords; no duplicate users or deletion from absent CSV rows | Pending |
 | V10 | Working and failing SMTP paths | Invitations work; failed delivery does not become completed activation | Pending |
 | V11 | Included app catalog and selected optional apps | Required functions available from approved sources; failures remain visible and block completion as specified | Pending |
 | V12 | Upstream IntraVox and generated welcome content | Content imports and is readable under intended service identities without exposing secrets | Pending |
 | V13 | Office editing, Talk signaling and test call from client browsers | Working application flows; loading the login page alone is insufficient | Pending |
 | V14 | Power/process interruption during image pull and user provisioning | Resume from verified actual state without wiping data or duplicating users | Pending |
-| V15 | Privileged operation authorization, rejected inputs and local admin recovery | Narrow worker boundary; recovery expires, invalidates sessions and keeps credentials out of logs | Pending |
+| V15 | Privileged operation authorization, rejected inputs and local admin recovery | Narrow worker boundary; recovery expires, invalidates sessions and keeps credentials out of logs | Partial: wizard authentication, CSRF, origin/host and TLS checks tested; worker/recovery pending |
 | V16 | Modding service upgrade with existing configuration/state | Verified release, prior-state backup and successful migration; frontend and CLI agree | Pending |
 | V17 | Approved AIO update window | Pre-backup, compatibility checks, actual-version inventory and post-update checks; report image-set mismatch | Pending |
 | V18 | Off-host backup and replacement-host restore | Restore AIO and Modding together with separately retained recovery material | Pending |
 | V19 | Evaluation versus production completion | Backup deferral clearly visible; production readiness requires backup and restore evidence | Pending |
-| V20 | Operator documentation walkthrough | Spanish instructions match actual commands, URLs, recovery and limitations | Pending |
-| V21 | Two different synthetic DEIS catalog records using the same build; missing/unknown selection and catalog update | Persist and preview the correct DEIS ID, identity and catalog version; no preselected establishment or cross-installation leakage; missing/unknown selection blocks provisioning without a manual fallback; catalog update preserves an existing confirmed selection for review | Pending |
-| V22 | Existing `gestion` custom theme on suite and Modding UI, including restart and update | Record source revision; verify tokens, fonts, logos, assets, desktop/mobile appearance and relevant app/guest views against the existing theme; establishment labels reflect DEIS selection; official core/image files remain unmodified and styling persists | Pending |
+| V20 | Operator documentation walkthrough | Spanish instructions match actual commands, URLs, recovery and limitations | Partial: runnable wizard guide; production procedures pending |
+| V21 | Two different synthetic DEIS catalog records using the same build; missing/unknown selection and catalog update | Persist and preview the correct DEIS ID, identity and catalog version; no preselected establishment or cross-installation leakage; missing/unknown selection blocks provisioning without a manual fallback; catalog update preserves an existing confirmed selection for review | Verified for configuration/confirmation on Ubuntu 24.04; future provisioning entry point must preserve these checks |
+| V22 | Existing `gestion` custom theme on suite and Modding UI, including restart and update | Record source revision; verify tokens, fonts, logos, assets, desktop/mobile appearance and relevant app/guest views against the existing theme; establishment labels reflect DEIS selection; official core/image files remain unmodified and styling persists | Partial: original asset provenance and wizard desktop/mobile verified; full Nextcloud theme port and update checks pending |
 
 The required theme source is
 [`gestion/themes/apsconecta`](https://github.com/APS-Conecta/gestion/tree/a09641015d1bbc7e999129795ec60c1aa96f2e54/themes/apsconecta),
 including its [brand mapping](https://github.com/APS-Conecta/gestion/blob/a09641015d1bbc7e999129795ec60c1aa96f2e54/themes/apsconecta/MAPEO.md)
 and shared tokens. Inspect the DEIS integration in
 [`scripts/deis.py`](https://github.com/APS-Conecta/gestion/blob/a09641015d1bbc7e999129795ec60c1aa96f2e54/scripts/deis.py)
-and its callers when implementing selection; identify the authoritative catalog
-and record its version rather than assuming a historical CSV is current. These
-references identify reuse sources, not a completed port or verified integration.
+and its callers when implementing selection. The implemented wizard imports the
+runtime `sites/establecimientos-deis-2026-07-23.csv` snapshot used by those callers;
+its date and content digest are retained. The later master CSV has a different
+schema and was not silently substituted. These references do not establish a
+completed Nextcloud theme port or full suite integration.
 
 Exact hardware requirements, DNS-provider support, library versions, credential
 storage, worker IPC and diagnostic retention must be documented and checked when

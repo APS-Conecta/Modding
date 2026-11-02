@@ -1,0 +1,56 @@
+{
+  "repository": "https://github.com/APS-Conecta/gestion",
+  "revision": "a09641015d1bbc7e999129795ec60c1aa96f2e54",
+  "files": [
+    {
+      "source": "LICENSE",
+      "path": "LICENSE",
+      "sha256": "8486a10c4393cee1c25392769ddd3b2d6c242d6ec7928e1414efff7dfb2f07ef"
+    },
+    {
+      "source": "sites/establecimientos-deis-2026-07-23.csv",
+      "path": "internal/catalog/data/establecimientos-deis-2026-07-23.csv",
+      "sha256": "fd21ba2cd1d8fa2f2634b3116b88826048ad1c36581ce39392611502ee2d0630"
+    },
+    {
+      "source": "themes/apsconecta/MAPEO.md",
+      "path": "third_party/gestion/MAPEO.md",
+      "sha256": "4e2dc87e4c7115abd3985cb1be2925379fe6847bd4ecbc676446f641e1717d0b"
+    },
+    {
+      "source": "themes/apsconecta/core/css/tokens.css",
+      "path": "internal/web/static/brand/tokens.css",
+      "sha256": "d39f33dd85adba01d2864c2ebe370934afef2f8419f044314ecf496bb4c32d41"
+    },
+    {
+      "source": "themes/apsconecta/core/fonts/Fraunces.woff2",
+      "path": "internal/web/static/brand/Fraunces.woff2",
+      "sha256": "986e3cd4c7f67a2be778c717d79b032812935e0572e20fe1032e5d4c95dd4144"
+    },
+    {
+      "source": "themes/apsconecta/core/fonts/NunitoSans.woff2",
+      "path": "internal/web/static/brand/NunitoSans.woff2",
+      "sha256": "e3f27f32836dde8e40557a3d7d0476506005a40838420dc9b25fe7989b2f8b20"
+    },
+    {
+      "source": "themes/apsconecta/core/img/logo/logo.svg",
+      "path": "internal/web/static/brand/logo.svg",
+      "sha256": "8ea2f28949e5d033a549788553e4393ee05a86412a683da1fec208f5baa3e4fb"
+    },
+    {
+      "source": "themes/apsconecta/core/img/logo/logo-mark.svg",
+      "path": "internal/web/static/brand/logo-mark.svg",
+      "sha256": "1946b1a79624205deac49629aa46b6f17cf506396004c6b196408c979096aaa5"
+    },
+    {
+      "source": "themes/apsconecta/core/img/background.svg",
+      "path": "internal/web/static/brand/background.svg",
+      "sha256": "ba69aabd50a94b1b9e592e531d6b759e29415694e52210547158487a4d74f22c"
+    },
+    {
+      "source": "themes/apsconecta/core/img/favicon.svg",
+      "path": "internal/web/static/brand/favicon.svg",
+      "sha256": "69838d97e5c8c3656f95f20a96e7517d39b7219ca81d9f3ee171ab56bbd6fe68"
+    }
+  ]
+}
