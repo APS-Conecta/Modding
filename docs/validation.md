@@ -7,10 +7,10 @@ runtime checks have passed yet.** Upstream documentation/source inspection is
 evidence about upstream behavior, not evidence of a working Modding installation.
 
 The user reports that AIO already works; that is the accepted project baseline,
-not a recorded Modding validation run. The first milestone is establishment
+not a recorded Modding validation run. The first milestone is DEIS establishment
 selection, editable configuration, persistence and a provisioning preview in the
-Modding wizard. A separate proof that upstream AIO itself works is not a
-prerequisite for developing that milestone.
+Modding wizard, using the existing `gestion` visual identity. A separate proof
+that upstream AIO itself works is not a prerequisite for developing that milestone.
 
 The following checks remain release requirements, including Modding's AIO
 automation and end-to-end installation on disposable servers. Detailed fixtures
@@ -27,7 +27,7 @@ and commands must be added alongside the implementation.
 | V05 | LAN/VPN clients, container DNS, DNS certificate issuance and renewal | Trusted hostname TLS and correct internal reachability without public suite exposure | Pending |
 | V06 | Automatic initial AIO setup | Complete without manual AIO UI actions, using unchanged official images; record tested adapter/version | Pending |
 | V07 | Expired setup session, slow progressing pulls and ambiguous startup result | Bounded recovery, meaningful progress, no false success or blind replay | Pending |
-| V08 | Selected establishment configuration and roster import | Preview matches the chosen identity and created groups, folders, named users and permissions | Pending |
+| V08 | DEIS-selected establishment configuration and roster import | Preview matches the selected catalog identity and created groups, folders, named users and permissions | Pending |
 | V09 | Rerun after direct administrator edits | Preserve edits and passwords; no duplicate users or deletion from absent CSV rows | Pending |
 | V10 | Working and failing SMTP paths | Invitations work; failed delivery does not become completed activation | Pending |
 | V11 | Included app catalog and selected optional apps | Required functions available from approved sources; failures remain visible and block completion as specified | Pending |
@@ -40,7 +40,17 @@ and commands must be added alongside the implementation.
 | V18 | Off-host backup and replacement-host restore | Restore AIO and Modding together with separately retained recovery material | Pending |
 | V19 | Evaluation versus production completion | Backup deferral clearly visible; production readiness requires backup and restore evidence | Pending |
 | V20 | Operator documentation walkthrough | Spanish instructions match actual commands, URLs, recovery and limitations | Pending |
-| V21 | Two different synthetic establishments using the same build, including manual definition without DEIS metadata | Each saved configuration and preview reflects its own choices; no hard-coded identity or cross-installation leakage; missing establishment selection blocks provisioning | Pending |
+| V21 | Two different synthetic DEIS catalog records using the same build; missing/unknown selection and catalog update | Persist and preview the correct DEIS ID, identity and catalog version; no preselected establishment or cross-installation leakage; missing/unknown selection blocks provisioning without a manual fallback; catalog update preserves an existing confirmed selection for review | Pending |
+| V22 | Existing `gestion` custom theme on suite and Modding UI, including restart and update | Record source revision; verify tokens, fonts, logos, assets, desktop/mobile appearance and relevant app/guest views against the existing theme; establishment labels reflect DEIS selection; official core/image files remain unmodified and styling persists | Pending |
+
+The required theme source is
+[`gestion/themes/apsconecta`](https://github.com/APS-Conecta/gestion/tree/a09641015d1bbc7e999129795ec60c1aa96f2e54/themes/apsconecta),
+including its [brand mapping](https://github.com/APS-Conecta/gestion/blob/a09641015d1bbc7e999129795ec60c1aa96f2e54/themes/apsconecta/MAPEO.md)
+and shared tokens. Inspect the DEIS integration in
+[`scripts/deis.py`](https://github.com/APS-Conecta/gestion/blob/a09641015d1bbc7e999129795ec60c1aa96f2e54/scripts/deis.py)
+and its callers when implementing selection; identify the authoritative catalog
+and record its version rather than assuming a historical CSV is current. These
+references identify reuse sources, not a completed port or verified integration.
 
 Exact hardware requirements, DNS-provider support, library versions, credential
 storage, worker IPC and diagnostic retention must be documented and checked when

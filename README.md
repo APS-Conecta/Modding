@@ -2,17 +2,18 @@
 
 Modding is the planned APS Conecta installer and administration layer for an
 unmodified Nextcloud All-in-One (AIO) installation. It will configure the suite,
-create named users, apply branding, and install the selected applications for
+create named users, apply the existing `gestion` custom theme, and install the selected applications for
 one establishment per server. Modding is establishment-agnostic: the operator
-chooses or defines the establishment during setup. No particular establishment
-or DEIS record is hard-coded into the installer.
+selects the establishment from the DEIS catalog during setup. No particular
+establishment is hard-coded or preselected in the installer.
 
 **Status: design approved; implementation and runtime validation pending.**
 This repository does not yet provide an installer or a downloadable release.
 The user reports that AIO already works. The next implementation milestone is
-the Modding configuration wizard: choose an establishment, edit its configuration,
-save it and preview the provisioning plan. Validation will focus on Modding's
-integration and changes to that working base.
+the Modding configuration wizard, using the existing APS visual identity: select
+an establishment through DEIS, edit its configuration, save it and preview the
+provisioning plan. Validation will focus on Modding's integration and changes to
+that working base.
 
 The agreed delivery method is an HTTPS shell bootstrap, usable through
 `curl … | sh`, which downloads and verifies a versioned Modding release. There

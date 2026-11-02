@@ -1,8 +1,9 @@
 # Approved design
 
 Approved through the project design interview on 2026-11-01, including the
-clarification that establishment selection happens during installation and AIO
-already works for the user. This document records requirements, not a claim of
+clarifications that users select their establishment through DEIS during
+installation, the existing `gestion` custom theme is reused, and AIO already
+works for the user. This document records requirements, not a claim of
 implemented Modding functionality. Modding's runtime checks remain pending in
 [the validation plan](validation.md).
 
@@ -11,7 +12,7 @@ implemented Modding functionality. Modding's runtime checks remain pending in
 Modding delivers APS Conecta Gestión as an installation and administration layer
 around official Nextcloud AIO. Its installer and provisioning core are
 establishment-agnostic. One fresh, dedicated server serves one establishment
-chosen by the operator during installation. The suite excludes patient data.
+chosen by the operator through the DEIS selector during installation. The suite excludes patient data.
 Setup and administration are Spanish-facing, with Chilean locale defaults and
 formal usted.
 
@@ -80,16 +81,19 @@ hostname TLS alone does not prove that the initial IP setup session is protected
 
 ## Establishment configuration and accounts
 
-Require the operator to choose or define the establishment before provisioning.
-Capture its identity in the installation configuration; never bake a real
-establishment name, identifier, roster or organizational structure into the
-installer. Keep one establishment per installation.
+Require the operator to select an establishment from the DEIS catalog before
+provisioning. DEIS is the user-facing establishment selector, not optional
+metadata or a free-text alternative. Reuse `gestion`'s DEIS data and selection
+logic as the starting point, with a recorded source revision and catalog version.
+Search and select a record, then show its identity for confirmation.
 
-Offer an establishment catalog when available and allow manual definition when
-the desired establishment is absent. A DEIS identifier is optional metadata,
-not a prerequisite for using the installer. Catalog records and organizational
-templates are data; the core must not depend on a particular establishment or
-registry entry.
+Persist the selected DEIS identifier, displayed establishment identity and catalog
+version in the installation configuration. Keep one establishment per installation.
+Establishment-agnostic means the same installer supports every selectable record;
+no particular establishment is hard-coded or silently preselected. Catalog data
+remains separate from installation logic and can be updated without hard-coding
+a different establishment. A missing record requires a catalog correction or
+update, not an invented DEIS identity or silent manual fallback.
 
 Use `gestion`'s sectors, programs, groups, shared folders and group-based
 permissions as editable starting templates. The operator chooses the applicable
@@ -116,9 +120,26 @@ passwords. Permission changes need the same explicit review as other changes.
 
 ## Branding and applications
 
-Use supported Nextcloud theming settings for name, colors, logos, background and
-links. Give the separate Modding installer and administration frontend the APS
-identity. Extensive changes to Nextcloud's internal layouts are deferred.
+Reuse the existing custom theme in
+[`gestion/themes/apsconecta`](https://github.com/APS-Conecta/gestion/tree/a09641015d1bbc7e999129795ec60c1aa96f2e54/themes/apsconecta)
+as the visual source of truth. Preserve its brand tokens, fonts, logos, assets
+and intended suite styling; do not replace it with a newly designed theme or
+reduce the requirement to generic color/logo settings. Use the same visual
+identity in the Modding installer and administration frontend.
+
+Use supported Nextcloud theming settings and the separately installed theme or
+extension layer to apply that identity while keeping official images and core
+files unmodified. Inspect the existing theme's loading paths, styles and
+application-specific integration before porting it. Adapt compatibility in the
+extension layer and explicitly report any behavior that cannot be retained
+within the agreed upstream boundary. Preserve applicable attribution and license
+notices, and record the imported source revision.
+
+Keep shared tokens authoritative across suite and wizard styling. Populate
+establishment-specific labels from the confirmed DEIS selection; the shared
+theme must not embed one establishment's identity. Check the resulting appearance
+against the existing `gestion` theme and verify persistence across restart and
+update before marking the port complete.
 
 Use original upstream releases for third-party apps, including
 [IntraVox](https://github.com/nextcloud/IntraVox) and
@@ -214,12 +235,13 @@ guidance. Version one operates without an APS central management service.
 
 ## Proof and documentation
 
-The first milestone implements the Modding configuration wizard: establishment
-selection or manual definition, editable organizational configuration, validation,
-SQLite persistence and a provisioning preview. Demonstrate that two different
-synthetic establishments can use the same build without shared identity or
-configuration leaking between installations. Provisioning requires an explicit
-establishment selection and confirmation of the preview.
+The first milestone implements the Modding configuration wizard using the
+existing `gestion` visual identity: DEIS establishment selection, editable
+organizational configuration, validation, SQLite persistence and a provisioning
+preview. Demonstrate that two different synthetic DEIS catalog records can use
+the same build without shared identity or configuration leaking between
+installations. Provisioning requires an explicit DEIS selection and confirmation
+of the preview.
 
 Then connect the saved configuration to the worker for users, branding and the
 approved app catalog, and integrate the AIO installation path. AIO is the working
