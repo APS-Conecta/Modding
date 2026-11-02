@@ -4,8 +4,29 @@ Approved through the project design interview on 2026-11-01, including the
 clarifications that users select their establishment through DEIS during
 installation, the existing `gestion` custom theme is reused, and AIO already
 works for the user. This document records requirements, not a claim of
-implemented Modding functionality. Modding's runtime checks remain pending in
-[the validation plan](validation.md).
+implemented Modding functionality unless stated below. Current implementation
+and remaining checks are recorded in [the validation plan](validation.md).
+
+## Current implementation
+
+The configuration milestone now implements the Go web service, embedded APS
+assets, DEIS selection, SQLite state, editable organizational choices and a
+confirmed plan/export. Its concrete behavior and limitations are documented in
+[the wizard guide](wizard.md). The original catalog snapshot and assets are
+identified in [the source manifest](../third_party/gestion/sources.json).
+
+This executable has no privileged worker, AIO setup adapter, user-provisioning
+actions, theme deployment or app installation. Its setup session uses a one-use
+terminal code and expires after eight hours or process restart; permanent admin
+accounts and local recovery remain future requirements. Loopback HTTP is the
+development default; non-loopback access requires supplied TLS credentials.
+
+The preview proposes a group per chosen sector, program or unit, team folders
+with read/write access without sharing, and read-only Transversal access for
+`all-staff`. These are editable organizational choices with fixed initial access
+proposals, not the complete Gestión ACL engine. Detailed permission editing and
+user assignment belong to the provisioning milestone. The remainder of this
+document describes the full target product.
 
 ## Product and scope
 

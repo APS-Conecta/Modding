@@ -1,0 +1,10 @@
+/bin/
+/.modding/
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+/test-results/
+__pycache__/
+*.pyc
+.venv/
